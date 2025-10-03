@@ -1,0 +1,211 @@
+html,body{
+    
+    height: 100%;
+    margin: 0;
+}
+
+body{
+    background: url("https://www.nomeatathlete.com/wp-content/uploads/2020/06/radio-286.jpg");
+    background-size: cover;
+
+}
+
+.header{
+    text-align: center;
+    background-color: rgba(249, 231, 231, 0.2);
+    height: 15vh;
+    width: 80vw;
+    border-radius: 10px;
+    align-items: center;
+    align-content: center;
+    margin: 10px auto;
+}
+
+
+.quiz{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10em ;
+    padding: 1em;
+    min-height: 20vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 35vw;
+     align-content: center;
+     margin:20vh auto ;
+     border-radius: 5px;
+     text-align: center;
+     transition: all 0.5s ease;
+
+   
+
+}
+
+
+.quiz.active-quiz{
+    min-height: 40vh;
+    width: 30vw;
+    padding: 2em;
+}
+.btn{
+    height: 2.5em;
+    width: 7em;
+    background: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 530;
+    font-size: 0.96em;
+
+}
+
+.quiz{
+    position: relative;
+    overflow: hidden;
+}
+
+.options{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 1em;
+    width: 100%;
+    align-items: center;
+}
+
+.option-btn{
+    width: 80%;
+    padding: 10px;
+    background: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    text-align: left;
+}
+
+.option-btn:hover{
+    background: #ddd;
+}
+
+.question-container{
+    animation: slideIn 0.5s forwards;
+}
+
+.slideout{
+    animation: slideOut 0.5s forwards;
+}
+
+@keyframes slideIn{
+    from{
+        transform: translateX(100%);
+        opacity: 0;
+
+    }
+    to{
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+}
+
+@keyframes slideOut{
+    from{
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to{
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.result-container{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.score-meter{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 8px solid #4caf50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin: 20px auto;
+    background: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.result-container button{
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.review-btn{
+    background-color: #2196f3;
+    color: white;
+}
+
+.review-btn:hover{
+    background-color: #1976d2;
+}
+
+.restart-btn{
+    background-color: #4caf50;
+    color: white;
+}
+
+.restart-btn:hover{
+    background-color: #388e3c;
+}
+
+.review-container .restart-btn {
+    background-color: #4CAF50;      
+    color: white;                   
+    padding: 12px 25px;              
+    font-size: 16px;                 
+    font-weight: bold;               
+    border: none;                    
+    border-radius: 25px;             
+    cursor: pointer;                 
+     transition: all 0.3s ease;        
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+
+.review-container .restart-btn:hover {
+    background-color: #388E3C;        
+    transform: translateY(-2px);      
+    box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+}
+
+.next-btn{
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: not-allowed;
+    background-color: #ccc;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.next-btn:enabled{
+    cursor: pointer;
+    background: linear-gradient(135deg,#43e97b,#38f9d7);
+    transform: scale(1.05);
+}
