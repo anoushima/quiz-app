@@ -5,7 +5,7 @@ html,body{
 }
 
 body{
-    background: url("https://www.nomeatathlete.com/wp-content/uploads/2020/06/radio-286.jpg");
+    background: url("radio-286.jpg");
     background-size: cover;
 
 }
@@ -90,6 +90,8 @@ body{
 
 .question-container{
     animation: slideIn 0.5s forwards;
+    position: relative;
+    padding: 20px;
 }
 
 .slideout{
@@ -208,4 +210,15 @@ body{
     cursor: pointer;
     background: linear-gradient(135deg,#43e97b,#38f9d7);
     transform: scale(1.05);
+}
+
+.timer{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    background:transparent ;
+    padding: 5px 10px;
+    
 }

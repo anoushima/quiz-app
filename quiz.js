@@ -43,7 +43,7 @@ let questions=[
     },
     {
         question: "Which symbol is used for comments in JavaScript?",
-        options: ["//", "#", "<!-- -->", "/* */"],
+        options: ["//", "#", "<!-- -->", "/**/"],
         answer: "//"
     },
     
@@ -56,34 +56,36 @@ let timer;
 
 function showquestion(){
     let q=questions[currentquestion];
-    quizbox.innerHTML=
-    '<div class="question-container">'+
-    "<h2>"+(currentquestion+1)+"."+q.question+"</h2>"+
-    '<p id="timer">⏳ 10</p>' +
-    '<div class="options">'+
-    q.options
-    .map(function(opt,index){
-        let letters=["a) ","b) ","c) ","d) "];
-        return'<button class="option-btn">'+letters[index]+opt+"</button>";
-    })
-
-    .join("")+
-    "</div>"+
-    '<button class="next-btn"disabled>Next</button>'
-    "</div>";
+  
+    quizbox.innerHTML =
+  '<p id="timer" class="timer">⏳ 10</p>' + // moved here
+  '<div class="question-container">' +
+  "<h2>" + (currentquestion + 1) + "." + q.question + "</h2>" +
+  '<div class="options">' +
+  q.options.map((opt, index) => {
+    let letters = ["a) ", "b) ", "c) ", "d) "];
+    return '<button class="option-btn">' + letters[index] + opt + "</button>";
+  }).join("") +
+  "</div>" +
+  '<button class="next-btn" disabled>Next</button>' +
+  "</div>";
 
 
-    let optionbuttons=document.getElementsByClassName("option-btn");
+
+    let optionbuttons = document.querySelectorAll(".option-btn");
     let nextbtn=document.querySelector(".next-btn");
 
    
 
 
-    for(let i=0;i<optionbuttons.length;i++)
-        optionbuttons[i].onclick=function(){
-    checkanswer(this,q.answer);
-    nextbtn.disabled=false;
-};
+
+    optionbuttons.forEach(btn=>{
+        btn.onclick=function(){
+            checkanswer(this,q.answer);
+            nextbtn.disabled=false;
+        };
+    });
+
 
  nextbtn.addEventListener("click",function(){
     clearInterval(timer);
@@ -95,36 +97,48 @@ let timedisplay=document.getElementById("timer");
 
 
 
-timer=setInterval(function(){
+
+
+
+setTimeout(() => {
+  let timeleft = 10;
+  let timedisplay = document.getElementById("timer");
+
+  timer = setInterval(function () {
     timeleft--;
-    timedisplay.textContent="⏳ "+timeleft+"s";
-    if(timeleft===0){
-        clearInterval(timer);
-        nextquestion();
+    timedisplay.textContent = "⏳ " + timeleft + "s";
+    if (timeleft === 0) {
+      clearInterval(timer);
+      nextquestion();
     }
-},1000);
+  }, 1000);
+}, 100);
+
+
 
 
 
 
 }
 
+let useranswer=[];
+
 function checkanswer(selectedbtn,correctans){
     clearInterval(timer);
-    let optionbuttons=document.getElementsByClassName("option-btn");
+    let optionbuttons=document.querySelectorAll(".option-btn");
 
-    for (let i=0;i<optionbuttons.length;i++){
-        optionbuttons[i].disabled=true;
-       
-    }
+    optionbuttons.forEach(btn=>btn.disabled=true);
 
-    if(selectedbtn.textContent.slice(2).trim()===correctans){
+    let chosen=selectedbtn.textContent.slice(2).trim();
+    useranswer[currentquestion]=chosen;
+    selectedbtn.style.backgroundColor = "#aeafaaff";
+
+    if(chosen===correctans){
         score++;
     }
 
     
-    // setTimeout(nextquestion,1000);
-
+    
 }
 
 function nextquestion(){
@@ -171,14 +185,24 @@ document.querySelector(".restart-btn").addEventListener("click",function(){
 
 
 function showreview(){
-    let reviewHTML="<h2>Review</h2>";
+    let reviewHTML='<div class="review-container"><h2>Review</h2>';
+
     questions.forEach(function(q,index){
+        let userans=useranswer[index]||"not attempted";
+        let color=(userans===q.answer)?"green":"red";
+
+        
         reviewHTML+=`
             <div class="review-question">
             <h3>${index+1}.${q.question}</h3>
-            <p><b>Correct Answer:</b>${q.answer}</p>
+            <p><b>Your answer:</b>
+            <span style="color:${color}">${userans}</span></p>
+            
+            <p><b>Correct Answer:</b>
+            <span style="color:green">${q.answer}</span></p>
             </div>`;
     });
+  
     quizbox.innerHTML=reviewHTML+`
         <button class="restart-btn">Restart Quiz</button>
         `;
